@@ -1,0 +1,285 @@
+/* Общие стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    max-width: 1400px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Для больших экранов */
+@media (min-width: 1400px) {
+    body {
+        padding: 0 130px;
+    }
+}
+
+/* Для средних экранов */
+@media (min-width: 768px) and (max-width: 1399px) {
+    body {
+        padding: 0 50px;
+    }
+}
+
+/* Для маленьких экранов (планшеты, телефоны) */
+@media (max-width: 767px) {
+    body {
+        padding: 0 10px;
+    }
+}
+
+/* Стили для шапки */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #cfeef8;
+    color: rgb(31, 30, 30);
+    padding: 1rem 0;
+    position: relative;
+}
+
+header img {
+    height: 80px;
+    margin-right: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для навигации */
+nav {
+    background: #333;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+nav a {
+    color: #fff9c4;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #fff176;
+}
+
+/* Стили для секций */
+section {
+    max-width: 800px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+h2 {
+    color: #333;
+}
+
+/* Стили для футера */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+footer a, #introduction a {
+    color: #2e2e2e;
+    margin: 0 10px;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+footer a:hover, #introduction a:hover {
+    color: #00bcd4;
+}
+
+/* Стили для кнопок */
+button {
+    background: #fff9c4;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin: 0.5rem 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+button:hover {
+    background: #fff176;
+}
+
+.code {
+    background-color: #f0f0f0;
+    padding: 0.2rem;
+    border-radius: 3px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.download-button {
+    background-color: #ffcccb;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.download-button:hover {
+    background-color: #ff9999;
+    transform: scale(1.05);
+}
+
+.centered-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 10px;
+    width: fit-content;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.centered-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Стили для контейнера */
+.container {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+.sidebar {
+    width: 30%;
+    background: #fff;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.content {
+    flex-grow: 1;
+    background: #fff;
+    border-left: 1px solid #ccc;
+}
+
+/* Общие стили для всех кнопок */
+.common-button {
+    color: #333;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Универсальный hover */
+.common-button:hover {
+    transform: scale(1.05);
+}
+
+.button-blue {
+    background-color: #e0f7fa;
+}
+
+.button-blue:hover {
+    background-color: #b2ebf2;
+}
+
+.button-pink {
+    background-color: #ffcccb;
+}
+
+.button-pink:hover {
+    background-color: #ff9999;
+}
+
+.download-guide-button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+download-guide-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Дополнительные специфичные стили */
+#introduction {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0.5rem 0;
+}
+
+h1, h2, h3 {
+    font-size: 16px;
+}
+
+h1 {
+    text-align: center;
+    background-color: #fff9c4; /* Highlight Overview heading */
+}
+
+code, pre {
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre-wrap; /* Allows wrapping of long lines */
+    word-wrap: break-word; /* Breaks long words */
+}
+
+.highlight {
+    background-color: #b2ebf2; /* Highlight specific words */
+}
+
+.package-highlight {
+    background-color: #ffcccb; /* Highlight package names */
+    border: 1px solid #ff9999; /* Add a thin border */
+    padding: 2px; /* Add some padding */
+}
+
+.highlight-yellow {
+    background-color: #ffff99;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+td em {
+    font-size: 12px;
+}
