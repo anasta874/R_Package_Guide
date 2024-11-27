@@ -16,56 +16,30 @@
         <h1 style="font-size: 2rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); background: none;">My Practice Guide: Creating R Packages</h1>
     </header>
 
-  <!-- Навигация -->
-<nav style="background:#333; color:white; display:flex; align-items:center; justify-content:space-between; padding:10px;">
-    <!-- Левая часть: текст -->
-    <div style="align-self:center; font-weight:bold; font-size:1rem; margin-right:20px;">
-        Resources:
-    </div>
-
-    <!-- Правая часть: кнопки и ссылки -->
-    <div style="display:flex; gap:15px; align-items:center;">
-        <a href="https://r-pkgs.org/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
-            H.Wickham and J.Bryan<br>R Packages (2e)
-        </a>            
-        <a href="https://docs.posit.co/ide/user/ide/guide/pkg-devel/writing-packages.html/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
-            RStudio User Guide<br>Writing Packages
-        </a>
-        <a href="https://bookdown.org/selesnow/r_package_course/" style="font-size:0.7rem;">
-            Сборник<br>Алексея Селезнёва<br>(rus)
-        </a>
-          <!-- Кнопка для перехода на YouTube -->
-        <a href="https://youtube.com/playlist?list=PLk3B5c8iCV-T4LM0mwEyWIunIunLyEjqM&si=EzBSOF5nQLHZNt2Y" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
-            Playlist 1
-        </a>
-        <a href="https://youtube.com/playlist?list=PLmNrK_nkqBpIZlWa3yGEc2-wX7An2kpCL&si=6lnz-y8PfVuH-ATQ" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
-            Love it
-        </a>
-        <button onclick="location.href='quick_reference.pdf'" class="download-guide-button" style="font-size:0.7rem;">Download My Guide</button>
-      
-    </div>
-</nav>
-
-<style>
-    /* Стили для YouTube-кнопки */
-    nav a:last-child {
-        background: #FF0000; /* Красный фон (цвет YouTube) */
-        color: white; /* Белый текст */
-        text-decoration: none;
-        padding: 5px 10px; /* Внутренние отступы */
-        border-radius: 5px; /* Скругленные углы */
-        display: inline-block;
-        font-weight: bold;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Эффект при наведении */
-    nav a:last-child:hover {
-        transform: scale(1.1); /* Увеличение кнопки */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
-    }
-</style>
-
+    <!-- Навигация -->
+    <nav style="background:#333; color:white; display:flex; align-items:center; justify-content:space-between; padding:10px;">
+        <div style="align-self:center; font-weight:bold; font-size:1rem; margin-right:20px;">
+            Resources:
+        </div>
+        <div style="display:flex; gap:15px; align-items:center;">
+            <a href="https://r-pkgs.org/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
+                H.Wickham and J.Bryan<br>R Packages (2e)
+            </a>            
+            <a href="https://docs.posit.co/ide/user/ide/guide/pkg-devel/writing-packages.html/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
+                RStudio User Guide<br>Writing Packages
+            </a>
+            <a href="https://bookdown.org/selesnow/r_package_course/" style="font-size:0.7rem;">
+                Сборник<br>Алексея Селезнёва<br>(rus)
+            </a>
+            <a href="https://youtube.com/playlist?list=PLk3B5c8iCV-T4LM0mwEyWIunIunLyEjqM&si=EzBSOF5nQLHZNt2Y" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
+                Playlist 1
+            </a>
+            <a href="https://youtube.com/playlist?list=PLmNrK_nkqBpIZlWa3yGEc2-wX7An2kpCL&si=6lnz-y8PfVuH-ATQ" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
+                Love it
+            </a>
+            <button onclick="location.href='quick_reference.pdf'" class="download-guide-button" style="font-size:0.7rem;">Download My Guide</button>
+        </div>
+    </nav>
 
     <!-- Введение -->
     <section id="introduction" style="padding: 0 10px; margin: 0 auto; max-width: 800px;">
@@ -79,11 +53,9 @@
             </div>
         </div>
         <p>
-            <!-- Иконка GitHub -->
             <a href="https://github.com/anasta874" target="_blank" title="GitHub">
                 <i class="fab fa-github"></i>
             </a>
-            <!-- Иконка Почты -->
             <a href="mailto:anasta874@gmail.com" title="Email">
                 <i class="fas fa-envelope"></i>
             </a>
@@ -95,7 +67,7 @@
     <div class="container">
         <!-- Боковая панель -->
         <div class="sidebar">
-            <button class="common-button button-blue" onclick="loadDocument('pages/introduction.html')"><strong>1.Overview</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('pages/introduction.html')"><strong>1. Overview</strong></button>
             <button class="common-button button-blue" onclick="loadDocument('pages/building_structure.html')"><strong>2. Building Structure</strong></button>
             <button class="common-button button-blue" onclick="loadDocument('pages/documenting_code.html')"><strong>3. Documenting my Code with roxygen2</strong></button>
             <button class="common-button button-blue" onclick="loadDocument('pages/incorporating_data.html')"><strong>4. Incorporating Data into an R Package</strong></button>
@@ -109,7 +81,8 @@
 
         <!-- Основной контент -->
         <div class="content">
-            <iframe id="document-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            <!-- Указываем ссылку introduction.html по умолчанию -->
+            <iframe id="document-frame" src="pages/introduction.html" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>
 
@@ -118,11 +91,6 @@
         function loadDocument(url) {
             document.getElementById('document-frame').src = url;
         }
-
-        // Load the "Overview" page by default when the page loads
-        window.onload = function() {
-            loadDocument('pages/introduction.html');
-        };
     </script>
 
     <!-- Футер -->
