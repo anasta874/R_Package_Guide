@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create R Packages</title>
+    <!-- Подключение Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- CSS настройки -->
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto; /* Центрируем контент */
+            max-width: 1400px; /* Увеличиваем максимальную ширину контента */
+            padding: 0 20px; /* Базовый внутренний отступ */
+            box-sizing: border-box;
+        }
+
+        /* Для больших экранов */
+        @media (min-width: 1400px) {
+            body {
+                padding: 0 130px; /* Боковые отступы для широких экранов */
+            }
+        }
+
+        /* Для средних экранов */
+        @media (min-width: 768px) and (max-width: 1399px) {
+            body {
+                padding: 0 50px; /* Уменьшаем боковые отступы на средних экранах */
+            }
+        }
+
+        /* Для маленьких экранов (планшеты, телефоны) */
+        @media (max-width: 767px) {
+            body {
+                padding: 0 10px; /* Минимальные отступы для мобильных устройств */
+            }
+        }
+
+        /* Стили для шапки */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #cfeef8;
+            color: rgb(31, 30, 30);
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        header img {
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem; 
+            margin: 0; 
+            font-weight: 700; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            color: #333; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+        }
+
+        /* Стили для навигации */
+        nav {
+            background: #333;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        /* Стили для ссылок в навигации */
+        nav a {
+            color: #fff9c4; 
+            text-decoration: none;
+            transition: color 0.3s; 
+        }
+
+        nav a:hover {
+            color: #fff176; 
+        }
+
+        /* Стили для секций */
+        section {
+            max-width: 800px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            color: #037aa2;
+        }
+
+        /* Стили для футера */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        footer a, #introduction a {
+            color: #2e2e2e; 
+            margin: 0 10px;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+
+        footer a:hover, #introduction a:hover {
+            color: #00bcd4;
+        }
+
+        /* Стили для кнопок */
+        button {
+            background: #fff9c4; 
+            color: #333;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem 0;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        button:hover {
+            background: #fff176; 
+        }
+
+        .code {
+            background-color: #f0f0f0; 
+            padding: 0.2rem;
+            border-radius: 3px;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .download-button {
+            background-color: #ffcccb;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .download-button:hover {
+            background-color: #ff9999;
+            transform: scale(1.05);
+        }
+
+        .centered-button {
+            background-color: #007BFF; 
+            color: white; 
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-align: center; 
+            display: inline-block; 
+            margin: 0 10px; 
+            width: fit-content; 
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .centered-button:hover {
+            background-color: #0056b3; 
+            transform: scale(1.05); 
+        }
+
+        /* Стили для контейнера */
+        .container {
+            display: flex;
+            height: 100vh; 
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 30%;
+            background: #fff; /* Change background to white */
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex-grow: 1;
+            background: #fff;
+            border-left: 1px solid #ccc;
+        }
+
+        .container button:not(:nth-child(10)) {
+            background-color: #e0f7fa;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            display: block;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .container button:not(:nth-child(10)):hover {
+            background-color: #b2ebf2; 
+            transform: scale(1.05); 
+        }
+
+        .container button:nth-child(10) {
+            background-color: #ffcccb; 
+            color: #333; 
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            display: block;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .container button:nth-child(10):hover {
+            background-color: #ff9999; 
+            transform: scale(1.05); 
+        }
+
+        /* Общие стили для всех кнопок */
+        .common-button {
+            color: #333; 
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            display: block;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        /* Универсальный hover */
+        .common-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Специфичные стили для голубых кнопок */
+        .button-blue {
+            background-color: #e0f7fa;
+        }
+
+        .button-blue:hover {
+            background-color: #b2ebf2;
+        }
+
+        /* Специфичные стили для розовой кнопки */
+        .button-pink {
+            background-color: #ffcccb;
+        }
+
+        .button-pink:hover {
+            background-color: #ff9999; 
+        }
+
+        /* Стили для кнопки "Скачать гайд" */
+        .download-guide-button {
+            background: #007BFF; /* Синий фон */
+            color: white; /* Белый текст */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: auto; /* Автоматическая ширина по тексту */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавное увеличение */
+        }
+
+        /* Увеличение кнопки при наведении */
+        .download-guide-button:hover {
+            transform: scale(1.1); /* Увеличиваем кнопку */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем небольшую тень */
+            background: #007BFF; /* Оставляем цвет неизменным */
+            color: white; /* Оставляем цвет текста неизменным */
+        }
+
+        /* Уменьшить отступы вокруг секции */
+        section#introduction {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0.5rem 0; /* Уменьшить отступы сверху и снизу */
+        }
+
+        /* Для текста и изображения */
+        #introduction div {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Уменьшить расстояние между текстом и изображением */
+        }
+
+        #introduction p {
+            margin: 0; /* Убрать отступы между абзацами */
+            line-height: 1.4; /* Уменьшить высоту строки для компактности */
+        }
+
+        /* Для изображения */
+        #introduction img {
+            width: 120px; /* Уменьшить размер изображения */
+            height: 120px; /* Пропорционально ширине */
+            border-radius: 50%; /* Круглая форма сохраняется */
+        }
+
+        /* Для иконок */
+        #introduction a {
+            font-size: 1.5rem; /* Уменьшить размер иконок */
+            margin-right: 10px; /* Уменьшить расстояние между иконками */
+            color: #333; /* Цвет по умолчанию */
+            transition: color 0.3s ease; /* Плавное изменение цвета */
+        }
+
+        #introduction a:hover {
+            color: #007BFF; /* Изменение цвета при наведении */
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <img src="R.png" alt="R Logo">
+        <h1>My Practice Guide: Creating R Packages</h1>
+    </header>
+
+  <!-- Навигация -->
+<nav style="background:#333; color:white; display:flex; align-items:center; justify-content:space-between; padding:10px;">
+    <!-- Левая часть: текст -->
+    <div style="align-self:center; font-weight:bold; font-size:1rem; margin-right:20px;">
+        Resources:
+    </div>
+
+    <!-- Правая часть: кнопки и ссылки -->
+    <div style="display:flex; gap:15px; align-items:center;">
+        <a href="https://r-pkgs.org/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
+            H.Wickham and J.Bryan<br>R Packages (2e)
+        </a>            
+        <a href="https://docs.posit.co/ide/user/ide/guide/pkg-devel/writing-packages.html/" target="_blank" style="display:inline-block; text-align:center; font-size:0.7rem;">
+            RStudio User Guide<br>Writing Packages
+        </a>
+        <a href="https://bookdown.org/selesnow/r_package_course/" style="font-size:0.7rem;">
+            Сборник<br>Алексея Селезнёва<br>(rus)
+        </a>
+          <!-- Кнопка для перехода на YouTube -->
+        <a href="https://youtube.com/playlist?list=PLk3B5c8iCV-T4LM0mwEyWIunIunLyEjqM&si=EzBSOF5nQLHZNt2Y" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
+            Playlist 1
+        </a>
+        <a href="https://youtube.com/playlist?list=PLmNrK_nkqBpIZlWa3yGEc2-wX7An2kpCL&si=6lnz-y8PfVuH-ATQ" target="_blank" style="background:#FF0000; color:white; text-decoration:none; padding:5px 10px; border-radius:5px; display:inline-block; font-weight:bold; font-size:0.7rem;">
+            Love it
+        </a>
+        <button onclick="location.href='quick_reference.pdf'" class="download-guide-button" style="font-size:0.7rem;">Download My Guide</button>
+      
+    </div>
+</nav>
+
+<style>
+    /* Стили для YouTube-кнопки */
+    nav a:last-child {
+        background: #FF0000; /* Красный фон (цвет YouTube) */
+        color: white; /* Белый текст */
+        text-decoration: none;
+        padding: 5px 10px; /* Внутренние отступы */
+        border-radius: 5px; /* Скругленные углы */
+        display: inline-block;
+        font-weight: bold;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Эффект при наведении */
+    nav a:last-child:hover {
+        transform: scale(1.1); /* Увеличение кнопки */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+    }
+</style>
+
+
+    <!-- Введение -->
+    <section id="introduction" style="padding: 0 10px; margin: 0 auto; max-width: 800px;">
+        <h2 style="margin-bottom: 0rem;">Hey There!</h2>
+        <div style="display: flex; align-items: center;">
+            <p style="flex: 3;">
+                I’m Anastasia – a computational biologist and IT enthusiast. I’m practicing how to develop R packages, and this course is my way of organizing and structuring the material I’m studying. I hope it might also be helpful for others who are learning R package development. Feel free to use it, and I’d be happy to hear any feedback or suggestions you might have!🙂
+            </p>
+            <div style="flex: 1; margin-left: 50px;">
+                <img src="photo_2024-10-28_11-39-40.jpg" alt="Description of the image" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            </div>
+        </div>
+        <p>
+            <!-- Иконка GitHub -->
+            <a href="https://github.com/anasta874" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <!-- Иконка Почты -->
+            <a href="mailto:anasta874@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </p>
+        <br>
+    </section>
+
+    <!-- Контейнер -->
+    <div class="container">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <button class="common-button button-blue" onclick="loadDocument('introduction.html')"><strong>1.Overview</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('building_structure.html')"><strong>2. Building Structure</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('documenting_code.html')"><strong>3. Documenting my Code with roxygen2</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('incorporating_data.html')"><strong>4. Incorporating Data into an R Package</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('testing_package.html')"><strong>5. Testing the Package</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('adding_features.html')"><strong>6. Adding Advanced Features (Shiny etc.)</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('sharing_package.html')"><strong>7. Sharing the Package</strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('practical_project.html')"><strong>8. Practical Project <span style="color: #007BFF;">GeoResistR</span></strong></button>
+            <button class="common-button button-blue" onclick="loadDocument('advanced_topics.html')"><strong>9. pkgdown</strong></button>
+            <button class="common-button button-pink" onclick="loadDocument('quick_reference.html')"><strong>10. Quick Reference</strong></button>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="content">
+            <iframe id="document-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
+    <script>
+        function loadDocument(url) {
+            document.getElementById('document-frame').src = url;
+        }
+
+        // Load the "Overview" page by default when the page loads
+        window.onload = function() {
+            loadDocument('introduction.html');
+        };
+    </script>
+
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2024 R Package Development Course – Created by Anastasia Poluzerova</p>
+    </footer>
+</body>
+</html>

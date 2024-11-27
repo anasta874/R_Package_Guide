@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Packages Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #fff9c4; /* Highlight Overview heading */
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .highlight {
+            background-color: #b2ebf2; /* Highlight specific words */
+        }
+        .package-highlight {
+            background-color: #ffcccb; /* Highlight package names */
+            border: 1px solid #ff9999; /* Add a thin border */
+            padding: 2px; /* Add some padding */
+        }
+    </style>
+</head>
+<body>
+    <h1>1. Overview</h1>
+    <p>R packages are libraries that extend the functionality of R. They include functions, data, and documentation in a convenient format that is easy to install, reuse, and share with others.</p>
+
+    <h2>Why Create R Packages?</h2>
+    <ul>
+        <li><strong>Reusable code:</strong> Complex analyses or algorithms can be encapsulated in functions, organized into a package, and reused in the future.</li>
+        <li><strong>Process standardization:</strong> Packages provide a standardized tool for data analysis that can be used across teams or projects.</li>
+        <li><strong>Clear documentation:</strong> Packages include usage examples and function descriptions, making them easier to understand.</li>
+        <li><strong>Integration:</strong> Packages easily integrate with each other, creating an ecosystem of tools.</li>
+        <li><strong>Public availability:</strong> Packages can be shared with colleagues or published in public repositories like <span class="highlight">CRAN</span>, <span class="highlight">GitHub</span>, or <span class="highlight">Bioconductor</span>.</li>
+        <li><strong>Ease of installation:</strong> Users can quickly install a package using commands like:</li>
+        <pre><code>install.packages("")
+devtools::install_github("")
+BiocManager::install("") # from Bioconductor</code></pre>
+    </ul>
+
+    <h2>Popular R Packages for Bioinformatics (Bioconductor Repository)</h2>
+    <ul>
+        <li><em><strong>edgeR, DESeq2, Limma:</strong> For differential gene expression analysis.</em></li>
+        <li><em><strong>GenomicRanges:</strong> For working with genomic coordinates.</em></li>
+        <li><em><strong>Biostrings:</strong> For analyzing DNA, RNA, and protein sequences.</em></li>
+        <li><em><strong>tidyverse:</strong> Although not specific to bioinformatics, it is widely used for data manipulatio bioinformatics (e.g., dplyr, ggplot2).</em></li>
+        <li><em><strong>phyloseq:</strong> For microbiome data analysis.</em></li>
+        <li><em><strong>pheatmap:</strong> For creating heatmaps, commonly used in bioinformatics.</em></li>
+    </ul>
+
+    <h2>R Packages for Creating R Packages :) </h2>
+    <ul>
+        <li><strong><span class="package-highlight">devtools:</span></strong> Simplifies the creation, development, and testing of packages.
+            <br><strong>Functions:</strong> <code>create()</code>, <code>install()</code>, <code>check()</code>.</li>
+        <li><strong><span class="package-highlight">roxygen2:</span></strong> For generating documentation.
+            <br>Documentation is written as comments in the code, and a <code>NAMESPACE</code> file is automatically generated.</li>
+        <li><strong><span class="package-highlight">usethis:</span></strong> Automates package structure creation.
+            <br>Creates folders (<code>R/</code>, <code>tests/</code>, <code>man/</code>), <code>README</code> templates, <code>LICENSE</code> files, and more.</li>
+        <li><strong><span class="package-highlight">testthat:</span></strong> For writing tests.
+            <br>Helps with testing package functions.</li>
+        <li><strong><span class="package-highlight">pkgdown:</span></strong> For generating a package website with documentation.</li>
+        <li><strong><span class="package-highlight">rcmdcheck:</span></strong> Checks the package for compliance with CRAN standards.</li>
+    </ul>
+</body>
+</html>

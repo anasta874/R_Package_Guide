@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing the R Package</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #fff9c4;
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .highlight {
+            background-color: #b2ebf2;
+        }
+    </style>
+</head>
+<body>
+    <h1>5. Testing the R Package</h1>
+    <p>Testing R packages is an essential part of development, ensuring that functions work correctly and as expected. The <code>testthat</code> library is widely used in R for writing and running tests, providing a convenient interface for package testing.</p>
+
+    <h2>Why Test a Package?</h2>
+    <ul>
+        <li><strong>Ensure function correctness:</strong> Verify that functions return expected results.</li>
+        <li><strong>Simplify refactoring:</strong> Tests alert you to unintended errors during modifications.</li>
+        <li><strong>Increase reliability:</strong> Confirm that functions handle all intended cases (and do not fail on unexpected inputs).</li>
+    </ul>
+
+    <h2>Steps for Testing a Package</h2>
+    <h3>1. Installing <code>testthat</code></h3>
+    <p>Ensure that the <code>testthat</code> library is installed:</p>
+    <pre><code>install.packages("testthat")</code></pre>
+
+    <h3>2. Setting Up Testing in the Package</h3>
+    <p>Use a function from <code>usethis</code> to initialize testing:</p>
+    <pre><code>usethis::use_testthat()</code></pre>
+    <p>This command will create a <code>tests/</code> folder in your package and set up the basic structure for integrating with the test system.</p>
+
+    <h3>3. Writing Tests</h3>
+    <p>Each function in your package should have a corresponding test file in the <code>tests/testthat/</code> folder.</p>
+    <p>Example:</p>
+    <p>If you have a function <code>add_numbers</code>, create a file <code>tests/testthat/test-add_numbers.R</code>:</p>
+    <pre><code>test_that("add_numbers works correctly", {
+  # Check correct results
+  expect_equal(add_numbers(2, 3), 5)
+  expect_equal(add_numbers(-1, 1), 0)
+
+  # Check for errors
+  expect_error(add_numbers("a", 1)) # Cannot add text and numbers
+})</code></pre>
+
+    <h4>Explanation:</h4>
+    <ul>
+        <li><code>test_that</code>: The main test block describing what is being tested.</li>
+        <li><code>expect_*</code>: A family of functions to verify results:
+            <ul>
+                <li><code>expect_equal</code>: Checks that the result matches the expected value.</li>
+                <li><code>expect_error</code>: Checks that a function throws an error.</li>
+                <li><code>expect_true / expect_false</code>: Checks that the result is <code>TRUE</code> or <code>FALSE</code>.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>4. Running Tests</h3>
+    <p>Run all tests in the package:</p>
+    <pre><code>devtools::test()</code></pre>
+
+    <h2>Advanced Testing Features</h2>
+    <h3>Testing Edge Cases</h3>
+    <p>Ensure that functions handle boundary values correctly:</p>
+    <pre><code>test_that("add_numbers handles edge cases", {
+  expect_equal(add_numbers(0, 0), 0)
+  expect_equal(add_numbers(Inf, -Inf), 0)
+})</code></pre>
+
+    <h3>Testing Data</h3>
+    <p>If your function works with data, verify that the data structure remains valid:</p>
+    <pre><code>test_that("function returns valid data structure", {
+  result <- my_function(data_frame)
+  expect_true(is.data.frame(result))
+  expect_named(result, c("col1", "col2", "col3"))
+})</code></pre>
+
+    <h3>Testing Performance</h3>
+    <p>Check that a function runs within a reasonable time:</p>
+    <pre><code>test_that("function runs quickly", {
+  expect_silent(system.time(my_function(data_frame)) < 1)
+})</code></pre>
+
+    <h2>Test Report</h2>
+    <p>When you run <code>devtools::test()</code>, <code>testthat</code> generates a detailed report:</p>
+    <ul>
+        <li>Successful tests.</li>
+        <li>Failed tests with detailed information about the causes.</li>
+    </ul>
+
+    <h2>Organizing Tests</h2>
+    <ul>
+        <li>Create a separate test file for each function: <code>test-function_name.R</code>.</li>
+        <li>Divide tests into logical blocks using <code>test_that</code>.</li>
+    </ul>
+
+    <h3>Example: Full Test Structure</h3>
+    <h4>Function</h4>
+    <pre><code>#' Add Two Numbers
+#' @param a First number
+#' @param b Second number
+#' @return Sum of a and b
+#' @export
+add_numbers <- function(a, b) {
+  if (!is.numeric(a) || !is.numeric(b)) {
+    stop("Inputs must be numeric")
+  }
+  a + b
+}</code></pre>
+
+    <h4>Tests (File: <code>tests/testthat/test-add_numbers.R</code>)</h4>
+    <pre><code>test_that("add_numbers works correctly", {
+  expect_equal(add_numbers(2, 3), 5)
+  expect_equal(add_numbers(-1, 1), 0)
+  expect_error(add_numbers("a", 1))
+})
+
+test_that("add_numbers handles edge cases", {
+  expect_equal(add_numbers(0, 0), 0)
+  expect_equal(add_numbers(Inf, -Inf), 0)
+})</code></pre>
+
+    <h3>Tips</h3>
+    <ul>
+        <li>Cover edge cases thoroughly.</li>
+        <li>Use meaningful names for tests.</li>
+        <li>Add tests for every function update or change.</li>
+        <li>Test both exported and internal functions. For internal functions, use:</li>
+    </ul>
+    <pre><code>pkgload::load_all(export_all = FALSE)</code></pre>
+</body>
+</html>

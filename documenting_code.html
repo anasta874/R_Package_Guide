@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using roxygen2 for R Package Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #fff9c4;
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .highlight {
+            background-color: #b2ebf2;
+        }
+    </style>
+</head>
+<body>
+    <h1>3. Using roxygen2 for R Package Documentation</h1>
+    <p>The <code>roxygen2</code> library allows automating the process of generating documentation. Instead of manually writing <code>.Rd</code> files, <code>roxygen2</code> uses special comments directly in the code. These comments are then turned into documentation files in the <code>man/</code> directory.</p>
+
+    <h2>Structure of the R/ Directory</h2>
+    <p>The <code>R/</code> directory contains the functions of your package. Each function is stored in a separate <code>.R</code> file. Documentation is written directly in these <code>.R</code> files, above the function definition.</p>
+    <p>Special comments start with <code>#'</code> and include metadata about the function.</p>
+
+    <h3>Example of a Function with Documentation</h3>
+    <pre><code>#' Summation of Two Numbers
+#'
+#' This function takes two numbers as input and returns their sum.
+#'
+#' @param a A numeric value. The first number.
+#' @param b A numeric value. The second number.
+#' @return The sum of `a` and `b`.
+#' @examples
+#' add_numbers(2, 3) # Returns 5
+#' @export
+add_numbers <- function(a, b) {
+  return(a + b)
+}</code></pre>
+
+    <h3>Explanation of Tags</h3>
+    <ul>
+        <li><code>@param</code>: Describes the function's parameters.</li>
+        <li><code>@return</code>: Describes what the function returns.</li>
+        <li><code>@examples</code>: Includes examples of how to use the function.</li>
+        <li><code>@export</code>: Indicates that the function will be available to users of the package.</li>
+    </ul>
+
+    <h2>Generating Documentation</h2>
+    <p>After writing the documentation, generate the <code>.Rd</code> files:</p>
+    <pre><code>devtools::document()</code></pre>
+    <p>This will create a documentation file in the <code>man/</code> folder of your package. For example, for the <code>add_numbers</code> function, a file <code>man/add_numbers.Rd</code> will be created.</p>
+
+    <h2>Checking Documentation</h2>
+    <p>Ensure the documentation is displayed correctly:</p>
+    <ol>
+        <li>Load the package:
+            <pre><code>devtools::load_all()</code></pre>
+        </li>
+        <li>Check the documentation in the console:
+            <pre><code>?add_numbers</code></pre>
+        </li>
+    </ol>
+
+    <h3>All <code>roxygen2</code> Tags</h3>
+    <ul style="font-size: 12px; font-style: italic;">
+        <li><code>@title</code>: Short title of the function.</li>
+        <li><code>@description</code>: Detailed description.</li>
+        <li><code>@details</code>: Additional information.</li>
+        <li><code>@seealso</code>: References to related functions or documentation.</li>
+        <li><code>@import</code>: Specifies which functions to import from other packages.</li>
+        <li><code>@export</code>: Makes the function available to users of the package.</li>
+        <li><code>@importFrom</code>: Import a specific function from a package.</li>
+        <li><code>@note</code>: Notes or warnings for the user.</li>
+        <li><code>@author</code>: Author of the function.</li>
+        <li><code>@format</code>: Data format.</li>
+        <li><code>@source</code>: Source of the data.</li>
+        <li><code>@references</code>: References or citations.</li>
+        <li><code>@examplesIf</code>: Examples executed under specific conditions.</li>
+        <li><code>@testexamples</code>: Test the examples provided in the documentation.</li>
+        <li><code>@family</code>: Group related functions together.</li>
+        <li><code>@name</code>: Name of the object or topic.</li>
+        <li><code>@docType</code>: Documentation type (e.g., package, function, data).</li>
+        <li><code>@concept</code>: Concept tag for classification.</li>
+        <li><code>@aliases</code>: Alternative names for the function.</li>
+        <li><code>@usage</code>: Custom usage instructions.</li>
+        <li><code>@section</code>: Custom sections for documentation.</li>
+        <li><code>@keywords</code>: Keywords for indexing.</li>
+        <li><code>@inherit</code>: Inherit documentation from another function.</li>
+        <li><code>@inheritParams</code>: Inherit parameter descriptions from another function.</li>
+        <li><code>@rawNamespace</code>: Raw namespace instructions.</li>
+        <li><code>@examplesDontRun</code>: Examples that should not be executed.</li>
+        <li><code>@include</code>: Include code or documentation from another file.</li>
+    </ul>
+</body>
+</html>

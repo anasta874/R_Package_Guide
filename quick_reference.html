@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steps to Create and Share an R Package</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #444;
+        }
+        h1 {
+            font-size: 18px; /* Further reduced */
+        }
+        h2 {
+            font-size: 14px; /* Further reduced */
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+        }
+        pre {
+            margin-bottom: 20px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #fff9c4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><span class="highlight">Steps to Create and Share an R Package</span></h1>
+    <h2>Step 1: Install Required Packages</h2>
+    <pre><code>install.packages(c("devtools", "usethis", "roxygen2", "testthat"))</code></pre>
+
+    <h2>Step 2: Create a Package Structure</h2>
+    <pre><code>usethis::create_package("path/to/MyPackage")</code></pre>
+
+    <h2>Step 3: Add Git (Optional, for Version Control)</h2>
+    <pre><code>usethis::use_git()  # Not required, can initialize manually via `git init`</code></pre>
+
+    <h2>Step 4: Add a License and README</h2>
+    <pre><code>usethis::use_mit_license("Your Name")
+usethis::use_readme_md()</code></pre>
+
+    <h2>Step 5: Add a Function</h2>
+    <pre><code>usethis::use_r("add_numbers")  # Creates R/add_numbers.R</code></pre>
+    <pre><code># Edit R/add_numbers.R to include:
+#' Add Two Numbers
+#' @param a First number
+#' @param b Second number
+#' @return Sum of `a` and `b`
+#' @examples add_numbers(2, 3)
+#' @export
+add_numbers <- function(a, b) { a + b }</code></pre>
+
+    <h2>Step 6: Document the Package</h2>
+    <pre><code>devtools::document()</code></pre>
+
+    <h2>Step 7: Add Tests</h2>
+    <pre><code>usethis::use_testthat()  # Initializes tests/testthat/</code></pre>
+    <pre><code># Create tests/testthat/test-add_numbers.R:
+test_that("add_numbers works", {
+  expect_equal(add_numbers(2, 3), 5)
+  expect_error(add_numbers("a", 1))
+})</code></pre>
+
+    <h2>Step 8: Run Tests</h2>
+    <pre><code>devtools::test()</code></pre>
+
+    <h2>Step 9: Add Data (Optional)</h2>
+    <pre><code>my_data <- data.frame(x = 1:5, y = 6:10)
+save(my_data, file = "data/my_data.rda")</code></pre>
+    <pre><code># Document the data in R/my_data.R:
+#' Example Dataset
+#' @format A data frame with 5 rows and 2 variables
+#' @examples data(my_data)
+"my_data"</code></pre>
+
+    <h2>Step 10: Check the Package</h2>
+    <pre><code>devtools::check()</code></pre>
+
+    <h2>Step 11: Build the Package</h2>
+    <pre><code>devtools::build()</code></pre>
+
+    <h2>Step 12: Share the Package</h2>
+    <pre><code>usethis::use_github()  # Optional, for GitHub sharing
+devtools::release()    # For CRAN submission</code></pre>
+</body>
+
+</html>

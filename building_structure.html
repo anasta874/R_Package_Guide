@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Structure of an R Package</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #fff9c4;
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .highlight {
+            background-color: #fff9c4;
+        }
+        .package-highlight {
+            background-color: #ffcccb;
+            border: 1px solid #ff9999;
+            padding: 2px;
+        }
+        .blue-text {
+            color: #007BFF;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 4px;
+        }
+        td em {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>2. Building Structure of an R Package</h1>
+
+    <table>
+        <tr>
+            <th>Package</th>
+            <th>Function</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">usethis</span></td>
+            <td><code>usethis::create_package(path)</code></td>
+            <td><em>Creates the basic structure of an R package.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>usethis::use_readme_rmd()</code></td>
+            <td><em>Adds a README file in RMarkdown format.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>usethis::use_testthat()</code></td>
+            <td><em>Sets up a folder for unit testing.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>usethis::use_package(package)</code></td>
+            <td><em>Adds the specified package as a dependency in the DESCRIPTION file.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>usethis::use_git()</code></td>
+            <td><em>Initializes a Git repository for the package.</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">devtools</span></td>
+            <td><code>devtools::document()</code></td>
+            <td><em>Generates documentation (.Rd files and NAMESPACE).</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>devtools::check()</code></td>
+            <td><em>Checks the package for errors and warnings.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>devtools::install()</code></td>
+            <td><em>Installs the current version of the package locally.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>devtools::load_all()</code></td>
+            <td><em>Loads all functions from the package without installation (for debugging).</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>devtools::build()</code></td>
+            <td><em>Creates a package archive (.tar.gz) for publication.</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">roxygen2</span></td>
+            <td><code>roxygen2::roxygenise()</code></td>
+            <td><em>Generates documentation and a NAMESPACE file based on #' comments.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>roxygen2::update_collate()</code></td>
+            <td><em>Updates the file order in the DESCRIPTION if necessary.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>roxygen2::roxygen2_options()</code></td>
+            <td><em>Configures settings for automatic documentation generation.</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">testthat</span></td>
+            <td><code>testthat::test_dir(path)</code></td>
+            <td><em>Runs all tests in the specified directory.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>testthat::expect_equal(object, expected)</td>
+            <td><em>Checks if the object equals the expected value.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>testthat::test_that(desc, code)</td>
+            <td><em>Defines a set of tests with a description and test scenarios.</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">desc</span></td>
+            <td><code>desc::desc_set(field, value)</code></td>
+            <td><em>Sets the value for a specified field in the DESCRIPTION file.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>desc::desc_add_dep(package, type)</td>
+            <td><em>Adds a dependency to Imports, Suggests, or another field.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>desc::desc_get(field)</td>
+            <td><em>Retrieves the value of a specified field from the DESCRIPTION file.</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">rcmdcheck</span></td>
+            <td><code>rcmdcheck::rcmdcheck()</code></td>
+            <td><em>Checks the package as CRAN does.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>rcmdcheck::check_details()</code></td>
+            <td><em>Extracts details of the check (errors, warnings, notes).</em></td>
+        </tr>
+        <tr>
+            <td><span class="package-highlight">pkgdown</span></td>
+            <td><code>pkgdown::build_site()</code></td>
+            <td><em>Creates a website for the package documentation.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>pkgdown::build_reference()</code></td>
+            <td><em>Builds the documentation section for all functions.</em></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><code>pkgdown::build_news()</code></td>
+            <td><em>Generates the package news page (Changelog).</em></td>
+        </tr>
+    </table>
+
+    <h3 class="blue-text">1. Create the Package Directory</h3>
+    <pre><code>install.packages("usethis")
+usethis::create_package("path/to/new_package")</code></pre>
+    <p>This command creates a new folder named <span class="highlight">new_package</span> with essential files and subdirectories.</p>
+
+    <h3>Files and Directories Created</h3>
+    <p>After running the command, the following structure generated:</p>
+    <pre><code>new_package/
+├── DESCRIPTION       # Metadata about your package
+├── NAMESPACE         # Declares exported/imported functions
+├── R/                # Contains R scripts (your functions)
+├── man/              # Documentation (generated automatically)
+├── tests/            # Test files for your functions</code></pre>
+
+    <h3 class="blue-text">2.Edit the DESCRIPTION File</h3>
+    <p>The <span class="highlight">DESCRIPTION</span> file is the heart of your package metadata. It contains:</p>
+    <ul>
+        <li>Package name: Must be unique.</li>
+        <li>Version: Use semantic versioning (e.g., 0.1.0).</li>
+        <li>Author/Maintainer: Include name and email.</li>
+        <li>License: Specify the license (e.g., GPL-3, MIT).</li>
+    </ul>
+    <p>Example DESCRIPTION file:</p>
+    <pre><code>Package: new_package
+Type: Package
+Title: Example R Package
+Version: 0.1.0
+Author: Name &lt;email@example.com&gt;
+Maintainer: Name &lt;email@example.com&gt;
+Description: A short description of what the package does.
+License: MIT
+Encoding: UTF-8
+LazyData: true</code></pre>
+
+    <h3 class="blue-text">3. Set Up the R/ Directory</h3>
+    <p>The <code>R/</code> folder is where all my R scripts (functions) are stored. Use <code>roxygen2</code> for function documentation. Example:</p>
+    <pre><code>#' My Example Function
+#'
+#' This function adds two numbers together.
+#' @param x First number.
+#' @param y Second number.
+#' @return Sum of `x` and `y`.
+#' @export
+my_function <- function(x, y) {
+    return(x + y)
+}</code></pre>
+
+    <h3 class="blue-text">4.Edit the NAMESPACE File</h3>
+    <p>Use <code>roxygen2</code> to generate the <span class="highlight">NAMESPACE</span> file automatically:</p>
+    <pre><code>devtools::document()</code></pre>
+
+    <h3>Add Dependencies</h3>
+    <p>If my package depends on other packages, declare them in the <code>Imports</code> field of the DESCRIPTION file:</p>
+    <pre><code>Imports:
+    ggplot2,
+    dplyr</code></pre>
+    <p>Then, use <code>usethis::use_package()</code> to add dependencies:</p>
+    <pre><code>usethis::use_package("ggplot2")</code></pre>
+
+    <h3 class="blue-text">5.Add Unit Tests</h3>
+    <p>Create a <code>tests/</code> folder using <code>usethis::use_testthat()</code>:</p>
+    <pre><code>usethis::use_testthat()</code></pre>
+    <p>Write test cases in the <code>tests/testthat/</code> folder, e.g., <code>test_my_function.R</code>:</p>
+    <pre><code>test_that("my_function works correctly", {
+    expect_equal(my_function(2), 4)
+})</code></pre>
+
+</body>
+</html>

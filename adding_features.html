@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding Advanced Features to an R Package</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #ffcccb;
+        }
+        code, pre {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .highlight {
+            background-color: #b2ebf2;
+        }
+        .highlight-yellow {
+            background-color: #ffff99;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adding Advanced Features to an R Package</h1>
+    <p>Advanced features in R packages enhance functionality and usability. Below are examples of such features:</p>
+
+    <h2>1. <span class="highlight-yellow">Interactive Shiny Applications</span></h2>
+    <p>Embed Shiny applications directly into my package by creating a <code>shiny/</code> folder.</p>
+    <p>More about using Shiny with R can be found here: <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/" target="_blank">Shiny Basics</a>.</p>
+
+    <h3>Steps to Embed a Shiny App in My R Package</h3>
+    <h4>Prepare Package</h4>
+    <p>Ensure my package structure is set up using tools like <code>usethis</code>:</p>
+    <pre><code>usethis::create_package("MyShinyPackage")</code></pre>
+
+    <h4>Add the Shiny App Files</h4>
+    <p>Create a <code>shiny/</code> directory and add the following files:</p>
+    <ul>
+        <li><strong>ui.R:</strong> Contains the user interface definition.</li>
+        <li><strong>server.R:</strong> Contains the server logic.</li>
+    </ul>
+    <p>Example of <code>shiny/ui.R</code>:</p>
+    <pre><code>shiny::fluidPage(
+  shiny::titlePanel("Example Shiny App"),
+  shiny::sidebarLayout(
+    shiny::sidebarPanel(
+      shiny::sliderInput("num", "Choose a number:", 1, 100, 50)
+    ),
+    shiny::mainPanel(
+      shiny::plotOutput("plot")
+    )
+  )
+)</code></pre>
+
+    <p>Example of <code>shiny/server.R</code>:</p>
+    <pre><code>function(input, output, session) {
+  output$plot <- shiny::renderPlot({
+    hist(rnorm(input$num))
+  })
+}</code></pre>
+
+    <h4>Add a Function to Run the App</h4>
+    <p>Create a wrapper function in my <code>R/</code> directory to run the Shiny app:</p>
+    <pre><code>#' Run the Example Shiny App
+#'
+#' This function launches the Shiny app embedded in the package.
+#' @export
+run_shiny_app <- function() {
+  app_dir <- system.file("shiny", package = "MyShinyPackage")
+  if (app_dir == "") {
+    stop("Could not find Shiny app directory. Please reinstall the package.", call. = FALSE)
+  }
+  shiny::runApp(app_dir, display.mode = "normal")
+}</code></pre>
+
+    <h4>Add Dependencies</h4>
+    <p>Declare Shiny as a dependency in the <code>DESCRIPTION</code> file:</p>
+    <pre><code>Imports:
+    shiny</code></pre>
+
+    <h4>Test the App Locally</h4>
+    <p>Build and load my package, then run the app using my wrapper function:</p>
+    <pre><code>devtools::load_all()
+run_shiny_app()</code></pre>
+
+    <h4>Additional Features for Shiny Apps</h4>
+    <ul>
+        <li><strong>Embed Data:</strong> Store datasets in <code>inst/extdata/</code> and access them dynamically:</li>
+    </ul>
+    <pre><code>data_path <- system.file("extdata", "example_data.csv", package = "MyShinyPackage")
+data <- read.csv(data_path)</code></pre>
+
+    <ul>
+        <li><strong>Customize Appearance:</strong> Add custom CSS and JavaScript:</li>
+    </ul>
+    <pre><code>shiny::tags$head(
+  shiny::includeCSS("www/styles.css")
+)</code></pre>
+
+    <ul>
+        <li><strong>Interactive Help with Vignettes:</strong> Link my Shiny app to a vignette:</li>
+    </ul>
+    <pre><code>usethis::use_vignette("shiny_app_guide")</code></pre>
+
+    <h4>Testing My App</h4>
+    <p>Use the <code>shinytest</code> package to automate testing:</p>
+    <pre><code>install.packages("shinytest")
+shinytest::recordTest("path/to/shiny/app")</code></pre>
+
+    <h4>Example Structure of a Package with Shiny App</h4>
+    <pre><code>MyShinyPackage/
+├── R/
+│   └── run_shiny_app.R
+├── DESCRIPTION
+├── NAMESPACE
+├── inst/
+│   └── shiny/
+│       ├── ui.R
+│       ├── server.R
+│       └── www/ (optional, for assets like CSS/JS)
+└── vignettes/
+    └── shiny_app_guide.Rmd</code></pre>
+
+    <h2>2. S3 and S4 Classes</h2>
+    <h3>S3 Classes</h3>
+    <p>Create flexible object-oriented behavior using the <code>class</code> attribute:</p>
+    <pre><code>my_object <- list(data = 1:10)
+class(my_object) <- "my_class"
+print.my_class <- function(x) {
+  cat("This is a custom class object\n")
+  print(x$data)
+}</code></pre>
+
+    <h3>S4 Classes</h3>
+    <p>Use formal class definitions for stricter validation:</p>
+    <pre><code>setClass("Person",
+  slots = list(name = "character", age = "numeric")
+)</code></pre>
+
+    <h2>3. Custom Operators</h2>
+    <p>Define new operators with special symbols:</p>
+    <pre><code>"%add%" <- function(a, b) a + b
+5 %add% 10  # Returns 15</code></pre>
+
+    <h2>4. Integrating C++ Code</h2>
+    <p>For performance, integrate C++ with Rcpp:</p>
+    <pre><code>install.packages("Rcpp")
+usethis::use_rcpp()</code></pre>
+    <p>Write C++ code in <code>src/</code>:</p>
+    <pre><code>// [[Rcpp::export]]
+double add_numbers(double a, double b) {
+    return a + b;
+}</code></pre>
+    <p>Use in R:</p>
+    <pre><code>Rcpp::sourceCpp("src/add_numbers.cpp")</code></pre>
+
+    <h2>5. Adding Vignettes</h2>
+    <p>Vignettes provide long-form package documentation:</p>
+    <pre><code>usethis::use_vignette("introduction")
+devtools::build_vignettes()</code></pre>
+</body>
+</html>
