@@ -231,7 +231,7 @@ download-guide-button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Дополнительные специфичные стили */
+/* Дополнительные стили */
 #introduction {
     margin: 0 auto;
     max-width: 1000px;
@@ -244,7 +244,7 @@ h1, h2, h3 {
 
 h1 {
     text-align: center;
-    background-color: #fff9c4; /* Highlight Overview heading */
+    background-color: #fff9c4; 
 }
 
 code, pre {
@@ -252,18 +252,18 @@ code, pre {
     padding: 2px 4px;
     font-family: monospace;
     font-size: 13px;
-    white-space: pre-wrap; /* Allows wrapping of long lines */
-    word-wrap: break-word; /* Breaks long words */
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
 }
 
 .highlight {
-    background-color: #b2ebf2; /* Highlight specific words */
+    background-color: #b2ebf2; 
 }
 
 .package-highlight {
-    background-color: #ffcccb; /* Highlight package names */
-    border: 1px solid #ff9999; /* Add a thin border */
-    padding: 2px; /* Add some padding */
+    background-color: #ffcccb; 
+    border: 1px solid #ff9999; 
+    padding: 2px;
 }
 
 .highlight-yellow {
