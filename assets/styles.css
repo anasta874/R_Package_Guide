@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    margin: 20px;
+    margin: 20px auto;
     max-width: 1400px;
     padding: 0 20px;
     box-sizing: border-box;
@@ -164,12 +164,16 @@ button:hover {
 /* Стили для контейнера */
 .container {
     display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    box-sizing: border-box;
     height: 100vh;
-    margin: 0;
 }
 
 .sidebar {
-    width: 30%;
+    width: 25%;
     background: #fff;
     padding: 1rem;
     overflow-y: auto;
@@ -179,6 +183,34 @@ button:hover {
     flex-grow: 1;
     background: #fff;
     border-left: 1px solid #ccc;
+    max-width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ensure centering on all screen sizes */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    .sidebar {
+        width: 30%;
+    }
+    .content {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+    .content {
+        max-width: 100%;
+        order: 1;
+    }
 }
 
 /* Общие стили для всех кнопок */
